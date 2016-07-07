@@ -61,4 +61,7 @@ RUN ln -s usr/local/bin/docker-entrypoint.sh /entrypoint.sh # backwards compat
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 3306
+RUN $$ echo "CREATE DATABASE todoVal" | sudo mysql -u root --password=azerty
+RUN $$ wget -P /home/sql/ https://raw.githubusercontent.com/leodockerhub/leo/master/todoVal.sql
+RUN $$ mysql -u root --password=azerty todoVal < /home/sql/todoVal.sql
 CMD ["mysqld"]
