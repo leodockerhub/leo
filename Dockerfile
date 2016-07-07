@@ -65,10 +65,7 @@ ENTRYPOINT ["docker-entrypoint.sh"]
 EXPOSE 3306
 
 ADD todoVal.sql /tmp/todoVal
-RUN /usr/sbin/mysqld & \
+RUN /usr/sbin/mysqld | sleep 10s | echo "CREATE DATABASE todoVal" | mysql -u root --password=''
 
-    sleep 10s &&\
-
-    echo "CREATE DATABASE todoVal" | mysql -u root --password=''
 
 CMD ["mysqld"]
