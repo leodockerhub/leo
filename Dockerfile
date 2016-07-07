@@ -62,7 +62,7 @@ ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 3306
 
-RUN $$ echo "CREATE DATABASE todoVal" | mysql -u root --password=''
+RUN mysql -u root -e "CREATE DATABASE mydb"
 RUN $$ wget -P / https://raw.githubusercontent.com/leodockerhub/leo/master/todoVal.sql
-RUN $$ mysql -u root --password='' todoVal < /todoVal.sql
+RUN mysql -u root --password='' todoVal < /todoVal.sql
 CMD ["mysqld"]
