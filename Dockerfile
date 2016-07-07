@@ -69,5 +69,4 @@ RUN /etc/init.d/mysql start \
 && echo "CREATE DATABASE todoVal" | mysql -u root --password='' \
 && /etc/init.d/mysql stop
 
-
 CMD ["mysqld"]
