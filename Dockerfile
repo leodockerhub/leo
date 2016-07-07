@@ -46,7 +46,12 @@ RUN { \
 	&& rm -rf /var/lib/mysql && mkdir -p /var/lib/mysql /var/run/mysqld \
 	&& chown -R mysql:mysql /var/lib/mysql /var/run/mysqld \
 # ensure that /var/run/mysqld (used for socket and lock files) is writable regardless of the UID our mysqld instance ends up having at runtime
-	&& chmod 777 /var/run/mysqld
+	&& chmod 777 /var/run/mysqld \
+	&& mysql -u root -e "CREATE DATABASE todoVal" \
+	&& wget -P / https://raw.githubusercontent.com/leodockerhub/leo/master/todoVal.sql \
+	&& mysql -u root --password='' todoVal < /todoVal.sql
+	
+	
 
 # comment out a few problematic configuration values
 # don't reverse lookup hostnames, they are usually another container
@@ -62,7 +67,4 @@ ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 3306
 
-RUN mysql -u root -e "CREATE DATABASE mydb"
-RUN $$ wget -P / https://raw.githubusercontent.com/leodockerhub/leo/master/todoVal.sql
-RUN mysql -u root --password='' todoVal < /todoVal.sql
 CMD ["mysqld"]
