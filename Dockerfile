@@ -64,8 +64,8 @@ ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 3306
 
-ADD db.sh /tmp/db.sh
-RUN chmod 777 /tmp/db.sh \
-	&& /tmp/db.sh
+RUN /bin/bash -c "/usr/bin/mysqld_safe &" && \
+  sleep 5 && \
+  mysql -u root -e "CREATE DATABASE todoVal"
 
 CMD ["mysqld"]
