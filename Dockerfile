@@ -65,7 +65,7 @@ ENTRYPOINT ["docker-entrypoint.sh"]
 EXPOSE 3306
 
 ADD db.sh /tmp/db.sh
-RUN chmod 777 /tmp/db.sh
-RUN /tmp/db.sh
+RUN chmod 777 /tmp/db.sh \
+	&& /tmp/db.sh
 
 CMD ["mysqld"]
